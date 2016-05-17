@@ -7,8 +7,11 @@ class IndexController extends Yaf_Controller_Abstract {
         $testmodel = new TestModel();
 
         $a = $testmodel->test("a");
+        $fileload=Yaf_Loader::getInstance();
+        $library_path  = $fileload->getLibraryPath();
+        var_dump($library_path);
 
-        $this->display('indexss');
+        $this->display('index');
 
 
     }
