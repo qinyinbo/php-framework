@@ -103,6 +103,14 @@ class TestModel
         }
 */
 
+/*
+ *
+ *
+ * config toarray
+
+        $config = Yaf_Registry::get('config');
+        var_dump($config->application->toarray());exit;
+*/
         $region  = $this->_getRegion();
 
 
