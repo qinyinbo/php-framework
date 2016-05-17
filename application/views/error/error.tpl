@@ -1,0 +1,1 @@
+<div>{%$exception->getMessage()%}</div>
