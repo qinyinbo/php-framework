@@ -17,10 +17,10 @@ class TestModel
  *
  *
  *
+ */
         $serverConfig = Yaf_Registry::get('config')->application->iniconfig;
         $config = new Yaf_Config_Ini($serverConfig);
         var_dump($config->get("ini.Logger"));
- */
 
 
 /*
@@ -30,21 +30,21 @@ class TestModel
  *
  *
  *
+*/
         $php_config = Yaf_Registry::get('phpconfig');
         //return $php_config["mysql"];
-*/
 
 
 
 
 
-        //Yaf_Loader::import(APPLICATION_PATH."/application/library/redislib/lib/Predis.php");
-        //不符合命名规则，所以需要手动加载   Warning: Yaf_Loader::autoload(): Failed opening script /home/qinyinbo/devspace/lai/library/Predis/Clients.php: No such file or directory
+        Yaf_Loader::import(APPLICATION_PATH."/application/library/redislib/lib/Predis.php");
+        不符合命名规则，所以需要手动加载   Warning: Yaf_Loader::autoload(): Failed opening script /home/qinyinbo/devspace/lai/library/Predis/Clients.php: No such file or directory
 
-        //$instanceConfig['host'] = "127.0.0.1";
-        //$instanceConfig['port'] = "6379";
-        //$instanceConfig['password'] = "123456";
-        //$this->redis_model = new Predis_Clients($instanceConfig);
+        $instanceConfig['host'] = "127.0.0.1";
+        $instanceConfig['port'] = "6379";
+        $instanceConfig['password'] = "123456";
+        $this->redis_model = new Predis_Clients($instanceConfig);
 
 
 
@@ -53,18 +53,19 @@ class TestModel
  * mysql
  *
  *
+*/
         $this->db->db_mysql($php_config['mysql'], "default");
         $this->db->connect();
         $sql = 'SELECT * FROM ' . $this->db->table_name('user') . ' WHERE status=0';
         $query = $this->db->query($sql);
         $data = $this->db->fetch_all($query);
-*/
 
 
 /*
  *
  * mongodb
 
+*/
         $m_client = Database_MongoClient($php_config["mongo"]["default"]);
         $coll_obj = new MyMongoCollection($m_client, "mongo_dbname", "mongo_collname");
         // $cursor  = $coll_obj->find(array('loc' => array('$within' => array('$center' => array(array($lon, $lat), $radius) ) ) ) );
@@ -74,7 +75,6 @@ class TestModel
 
         return $path;
 
-*/
 
 
 
@@ -84,6 +84,7 @@ class TestModel
  * redis
  *
  *
+*/
 
         $config = Yaf_Registry::get('config');
         $redis_host = $config->application->m_redis_host;
@@ -101,16 +102,15 @@ class TestModel
         if( !empty( $info ) ){
             return $info;
         }
-*/
 
 /*
  *
  *
  * config toarray
+*/
 
         $config = Yaf_Registry::get('config');
-        var_dump($config->application->toarray());exit;
-*/
+        $config->application->toarray());
         $region  = $this->_getRegion();
 
 
