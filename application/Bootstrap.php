@@ -10,6 +10,9 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
         $php_config = Config::getConfig('php_config',$php_config_path);
         Yaf_Registry::set('phpconfig', $php_config);
     }
+    public function _initRequest() {
+        Yaf_Registry::set('request', new RequestValidator());
+    }
     public function _initMemcaches(){
         $cacheconfig = explode("|",$this->_config->application->memcacheconfig);
         $memcache = new Memcache;
@@ -39,14 +42,9 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
 
 
     public function _initPlugin(Yaf_Dispatcher $dispatcher) {
-        /*
         //注册一个插件
         $AutoloadPlugin = new AutoloadPlugin();
         $dispatcher->registerPlugin($AutoloadPlugin);
-        //注册一个插件
-//        $objSamplePlugin = new SamplePlugin();
-//        $dispatcher->registerPlugin($objSamplePlugin);
-        */
     }
     public function _initRoute(Yaf_Dispatcher $dispatcher) {
         $router = $dispatcher->getRouter();
@@ -54,15 +52,8 @@ class Bootstrap extends Yaf_Bootstrap_Abstract{
         $router->addRoute("myroute", $route); 
 
 
-        //echo "_initRoute call second<br/>\n";
         $router = Yaf_Dispatcher::getInstance()->getRouter();
-        /**
-         * add the routes defined in ini config file
-         */
         $router->addConfig(Yaf_Registry::get("config")->routes);
-        /**
-         * test this route by access http://yourdomain.com/product/list/?/?/
-         */
         $route  = new Yaf_Route_Rewrite(
             "/product/list/:id/:name",
             array(

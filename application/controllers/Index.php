@@ -2,7 +2,10 @@
 class IndexController extends Yaf_Controller_Abstract {
     public function indexAction() 
     {
-        $src  = trim($this->getRequest()->getQuery("src", ""));
+        $param_a  = trim($this->getRequest()->getQuery("a", ""));
+        $request = Yaf_Registry::get('request');
+        $param_b = strtolower($request->getQuery('b', 'defaultvalue', 'trim|htmlentities'));
+        $param_c = $request->getQuery('c', 1, 'int|range:1-x');
 
         $testmodel = new TestModel();
 

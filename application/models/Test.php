@@ -72,6 +72,7 @@ class TestModel
         $fields = array('qid', 'name', 'avatar', 'tel', 'loc', 'sex');
         $cursor  = $coll_obj->find(array('loc' => array('$near' => array($lon, $lat))), $fields)->limit($user_num);
         $users = iterator_to_array($cursor);
+        @iconv('gbk', 'UTF-8//IGNORE', "utf8str");
 
         return $path;
 
